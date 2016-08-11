@@ -3,8 +3,8 @@
 TL;DR: MAKE PHP5 CODES WORK AGAIN!
 
 You have an old project that can't be changed easily to work with PHP7?  
-GREAT!  
-Here is a wrapper for ~~all~~ some depricated and removed functions to make your PHP5 work in PHP7.
+GREAT! We have a few of them at work but I couldnt find anything like this on the whole Internet. 
+So here is a wrapper for ~~all~~ some depricated and removed functions to make your PHP5 work on PHP7.  
 
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=LZ89S5B4T4QSS)
 
@@ -54,5 +54,6 @@ MIT
 
 ## Other
 
+* thanks to my boss who allowed me to publish it :)
 * Blogpost: TBD
 * [Twitter](https://twitter.com/bison_42)
