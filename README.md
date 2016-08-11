@@ -6,6 +6,8 @@ You have an old project that can't be changed easily to work with PHP7?
 GREAT!  
 Here is a wrapper for ~~all~~ some depricated and removed functions to make your PHP5 work in PHP7.
 
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=LZ89S5B4T4QSS)
+
 
 ## Installation
 
@@ -42,11 +44,13 @@ if (!function_exists('mysql_connect'))
 * there are a LOT of missing functions, CATCH EM ALL!
 * better Doku?
 
+
 ## License
 
 MIT
 
 **Free Software, Hell Yeah!**
+
 
 ## Other
 
