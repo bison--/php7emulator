@@ -197,5 +197,5 @@ function apc_delete($key)
 
 // Makes split compatible again.
 function split( string $pattern , string $string , int $limit = -1  ) : array {
-    return explode( $pattern , $string, int $limit );
+    return preg_split($pattern , $string, $limit );
 }
