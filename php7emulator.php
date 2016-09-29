@@ -147,6 +147,34 @@ function mysql_num_rows($result)
     return mysqli_num_rows($result);
 }
 
+//int mysql_affected_rows ([ resource $link_identifier = NULL ] )
+function mysql_affected_rows($link_identifier = NULL)
+{
+    //int mysqli_affected_rows ( mysqli $link )
+    if ($link_identifier == NULL)
+    {
+        return mysqli_affected_rows(php7emulatorMemory::$lastMysqlLink);
+    }
+    else
+    {
+        return mysqli_affected_rows($link_identifier);
+    }
+}
+
+//int mysql_insert_id ([ resource $link_identifier = NULL ] )
+function mysql_insert_id($link_identifier = NULL)
+{
+    //mixed mysqli_insert_id ( mysqli $link )
+    if ($link_identifier == NULL)
+    {
+        return mysqli_insert_id(php7emulatorMemory::$lastMysqlLink);
+    }
+    else
+    {
+        return mysqli_insert_id($link_identifier);
+    }
+}
+
 //bool mysql_set_charset ( string $charset [, resource $link_identifier = NULL ] )
 function mysql_set_charset($charset, $link_identifier = NULL)
 {
@@ -194,3 +222,18 @@ function apc_delete($key)
     //mixed apcu_delete
     return apcu_delete($key);
 }
+
+// couldnt make it work (yet!))
+//int ereg ( string $pattern , string $string [, array &$regs ] )
+/*function ereg($pattern, $string, &$regs)
+{
+    //http://stackoverflow.com/questions/9954064/ereg-eregi-replacement-for-php-5-3
+    //http://www.php.net/manual/en/reference.pcre.pattern.posix.php
+    //http://php.net/manual/de/function.ereg.php
+    //int preg_match ( string $pattern , string $subject [, array &$matches [, int $flags = 0 [, int $offset = 0 ]]] )
+    $modedPattern = '/'.$pattern.'/';
+    $res = preg_match($modedPattern, $string, $regs);
+    print_r($regs);
+    print $modedPattern. ' res: "'.$res.'"';
+    return $res;
+}*/
