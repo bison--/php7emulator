@@ -222,3 +222,8 @@ function apc_delete($key)
     //mixed apcu_delete
     return apcu_delete($key);
 }
+
+// Makes split compatible again.
+function split( string $pattern , string $string , int $limit = -1  ) : array {
+    return preg_split($pattern , $string, $limit );
+}
