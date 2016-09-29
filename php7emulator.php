@@ -222,18 +222,3 @@ function apc_delete($key)
     //mixed apcu_delete
     return apcu_delete($key);
 }
-
-// couldnt make it work (yet!))
-//int ereg ( string $pattern , string $string [, array &$regs ] )
-/*function ereg($pattern, $string, &$regs)
-{
-    //http://stackoverflow.com/questions/9954064/ereg-eregi-replacement-for-php-5-3
-    //http://www.php.net/manual/en/reference.pcre.pattern.posix.php
-    //http://php.net/manual/de/function.ereg.php
-    //int preg_match ( string $pattern , string $subject [, array &$matches [, int $flags = 0 [, int $offset = 0 ]]] )
-    $modedPattern = '/'.$pattern.'/';
-    $res = preg_match($modedPattern, $string, $regs);
-    print_r($regs);
-    print $modedPattern. ' res: "'.$res.'"';
-    return $res;
-}*/
