@@ -110,6 +110,12 @@ function mysql_fetch_object($result, $class_name='', $params=array())
     }
 }
 
+//array mysql_fetch_assoc ( resource $result )
+function mysql_fetch_assoc($result)
+{
+    return mysqli_fetch_assoc($result);
+}
+
 //string mysql_real_escape_string ( string $unescaped_string [, resource $link_identifier = NULL ] )
 function mysql_real_escape_string($string, $link_identifier = NULL)
 {
