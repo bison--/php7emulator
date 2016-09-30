@@ -54,7 +54,7 @@ function mysql_free_result($result)
     mysqli_free_result($result);
 }
 
-//mysql_select_db ( string $database_name [, resource $link_identifier = NULL ] )
+//bool mysql_select_db ( string $database_name [, resource $link_identifier = NULL ] )
 function mysql_select_db($database_name, $link_identifier = NULL)
 {
     if ($link_identifier == NULL)
