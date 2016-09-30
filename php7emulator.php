@@ -59,14 +59,14 @@ function mysql_select_db($database_name, $link_identifier = NULL)
 {
     if ($link_identifier == NULL)
     {
-        return mysqli_select_db(php7emulatorMemory::$lastMysqlLink, $database_name) or die(mysql_error());
+        //.debug_print_backtrace()
+        return mysqli_select_db(php7emulatorMemory::$lastMysqlLink, $database_name) or die('mysql_select_db: "'.$database_name.'" -> "'.mysql_error().'"');
     }
     else
     {
-        return mysqli_select_db($link_identifier, $database_name);
+        return mysqli_select_db($link_identifier, $database_name) or die('mysql_select_db: "'.$database_name.'" -> "'.mysql_error().'"');
     }
 }
-
 
 //mixed mysql_query ( string $query [, resource $link_identifier = NULL ] )
 function mysql_query($query, $link_identifier = NULL)
