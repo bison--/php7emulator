@@ -223,7 +223,21 @@ function apc_delete($key)
     return apcu_delete($key);
 }
 
-// Makes split compatible again.
-function split( string $pattern , string $string , int $limit = -1  ) : array {
-    return preg_split($pattern , $string, $limit );
+//array split ( string $pattern , string $string [, int $limit = -1 ] )
+function split($pattern, $string, $limit=-1)
+{
+    //array preg_split ( string $pattern , string $subject [, int $limit = -1 [, int $flags = 0 ]] )
+    
+    $string = $string.''; // make sure its a string!
+    if ($pattern[0] != '/')
+    {
+       $pattern = '/'.$pattern; 
+    }
+    
+    if ($pattern[ strlen($pattern) -1 ] != '/')
+    {
+       $pattern = $pattern.'/'; 
+    }
+    
+    return preg_split($pattern, $string, $limit);
 }
