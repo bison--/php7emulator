@@ -24,13 +24,32 @@ if (!function_exists('mysql_connect'))
 
 class php7emulatorMemory {
     public static $lastMysqlLink = NULL;
+    public static $connectFlags = NULL;
+    
+    
+    public function enableCompression()
+    {
+        self::$connectFlags = MYSQLI_CLIENT_COMPRESS;
+    }
+
+    public function disableCompression()
+    {
+        self::$connectFlags = NULL;
+    }
 }
 
 //$link = mysql_connect('example.com:3307', 'mysql_user', 'mysql_password'); new_link
 function mysql_connect($server, $username='', $password='')
 {
     //print $server;
-    php7emulatorMemory::$lastMysqlLink = mysqli_connect($server, $username, $password) or die('NO CONNECTION! "'.$server.'" "'.$username.'"');
+    php7emulatorMemory::$lastMysqlLink = mysqli_init();
+    if (!mysqli_real_connect(php7emulatorMemory::$lastMysqlLink, $server, $username, $password, NULL, NULL, NULL, php7emulatorMemory::$connectFlags))
+    {
+         die('NO CONNECTION! "'.$server.'" "'.$username.'"');
+    }
+
+
+    //php7emulatorMemory::$lastMysqlLink = mysqli_connect($server, $username, $password) or die('NO CONNECTION! "'.$server.'" "'.$username.'"');
     return php7emulatorMemory::$lastMysqlLink;
 }
 
