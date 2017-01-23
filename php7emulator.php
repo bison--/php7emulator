@@ -195,6 +195,13 @@ function mysql_set_charset($charset, $link_identifier = NULL)
     }
 }
 
+//bool mysql_data_seek ( resource $result , int $row_number )
+function mysql_data_seek($result, $row_number)
+{
+    //bool mysqli_data_seek ( mysqli_result $result , int $offset )
+    return mysqli_data_seek($result, $row_number);
+}
+
 //apc_fetch ( mixed $key [, bool &$success ] )
 function apc_fetch($key, &$success = NULL)
 {
