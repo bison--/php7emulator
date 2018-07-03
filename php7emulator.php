@@ -90,14 +90,27 @@ function mysql_select_db($database_name, $link_identifier = NULL)
 //mixed mysql_query ( string $query [, resource $link_identifier = NULL ] )
 function mysql_query($query, $link_identifier = NULL)
 {
-    if ($link_identifier == NULL)
+    if (is_null($link_identifier))
     {
-        return mysqli_query(php7emulatorMemory::$lastMysqlLink, $query); //or die(mysql_error());
+        $link_identifier = php7emulatorMemory::$lastMysqlLink;
     }
-    else
-    {
-        return mysqli_query($link_identifier, $query);
+
+    $res = mysqli_query($link_identifier, $query);
+    if ($res === false && function_exists('_Log')){
+        _Log('php7emulator mysql_query ERROR return false at query: '.$query.' Error: '.$link_identifier->error);
     }
+    return $res; //or die(mysql_error());
+}
+
+//resource mysql_db_query ( string $database , string $query [, resource $link_identifier = NULL ] )
+function mysql_db_query($database, $query, $link_identifier = null) 
+{
+    $selectOk = mysql_select_db($database, $link_identifier);
+    if ($selectOk === false) {
+        return false;
+    }
+    
+    return mysql_query($query, $link_identifier);
 }
 
 //array mysql_fetch_array ( resource $result [, int $result_type = MYSQL_BOTH ] )
@@ -172,6 +185,26 @@ function mysql_num_rows($result)
     return mysqli_num_rows($result);
 }
 
+//int mysql_num_fields ( resource $result )
+function mysql_num_fields($result)
+{
+    return mysqli_num_fields($result);
+}
+
+//object mysql_fetch_field ( resource $result [, int $field_offset = 0 ] )
+function mysql_fetch_field($result, $field_offset = 0)
+{
+    //return mysqli_fetch_field($result);  // had to ignore field-offset, if iterated it SHOULD work
+    // better!
+    return mysqli_fetch_field_direct($result, $field_offset);
+}
+
+//int mysql_field_len ( resource $result , int $field_offset )
+function mysql_field_len($result, $field_offset)
+{
+    return mysqli_fetch_field_direct($result, $field_offset)->length;
+}
+
 //int mysql_affected_rows ([ resource $link_identifier = NULL ] )
 function mysql_affected_rows($link_identifier = NULL)
 {
@@ -235,7 +268,7 @@ function apc_store($key, $var, $ttl=0)
 }
 
 //array apc_cache_info ([ string $cache_type = "" [, bool $limited = false ]] )
-function apc_cache_info($cache_type, $limited)
+function apc_cache_info($cache_type, $limited = false)
 {
     //return apcu_cache_info($cache_type, $limited);
     return apcu_cache_info($limited);
@@ -273,3 +306,20 @@ function split($pattern, $string, $limit=-1)
     
     return preg_split($pattern, $string, $limit);
 }
+
+// Fix for removed Session functions
+// via: http://php.net/manual/de/function.session-register.php#96241
+//bool session_register ( mixed $name [, mixed $... ] )
+function session_register(){
+    $args = func_get_args();
+    foreach ($args as $key){
+        $_SESSION[$key]=$GLOBALS[$key];
+    }
+}
+function session_is_registered($key){
+    return isset($_SESSION[$key]);
+}
+function session_unregister($key){
+    unset($_SESSION[$key]);
+}
+
